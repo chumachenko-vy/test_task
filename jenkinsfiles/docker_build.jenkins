@@ -6,7 +6,7 @@ pipeline {
     agent{
         label 'master'
         }
-    //triggers { pollSCM('H/2 * * * *') }
+    //triggers { pollSCM('* * * * *') }
     options {
         buildDiscarder(logRotator(numToKeepStr: '6', artifactNumToKeepStr: '6'))
         timestamps()
@@ -16,7 +16,7 @@ pipeline {
             steps {
                 echo "=============== Start build image ==================="
                 dir ('docker/toolbox') {
-                        sh 'docker build -t toolbox:latest .'           
+                        sh 'docker build -t vchaws/toolbox:latest .'           
                 }
             }
         }
