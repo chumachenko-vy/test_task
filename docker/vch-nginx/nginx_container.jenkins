@@ -23,18 +23,24 @@ pipeline {
             }
         }
         stage("create docker image") {
+            when {
+                expression { env.BRANCH_NAME == 'devel' }
+            }
             steps {
-                echo " ============== start building image =================="
+                echo " ============== start building devel image =================="
                 dir ('docker/vch-nginx') {
-                	sh 'docker build -t vchaws/vchnginx:latest . '
+                	sh 'docker build -t vchaws/vchnginx-devel:latest . '
                 }
             }
         }
         stage("docker push") {
+            when {
+                expression { env.BRANCH_NAME == 'devel' }
+            }
             steps {
-                echo " ============== start pushing image =================="
+                echo " ============== start pushing devel image =================="
                 sh '''
-                docker push vchaws/vchnginx:latest
+                docker push vchaws/vchnginx-devel:latest
                 '''
             }
         }
