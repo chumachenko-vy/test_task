@@ -31,6 +31,14 @@ pipeline {
                 dir ('docker/vch-nginx') {
                 	sh 'docker build -t vchaws/vchnginx-devel:latest . '
                 }
+             when {
+                expression { env.BRANCH_NAME == 'master' }
+            }
+            steps {
+                echo " ============== start building master image =================="
+                dir ('docker/vch-nginx') {
+                	sh 'docker build -t vchaws/vchnginx-master:latest . '
+                }
             }
         }
         stage("docker push") {
@@ -43,6 +51,15 @@ pipeline {
                 docker push vchaws/vchnginx-devel:latest
                 '''
             }
+            when {
+                expression { env.BRANCH_NAME == 'master' }
+            }
+           steps {
+                echo " ============== start pushing master image =================="
+                sh '''
+                docker push vchaws/vchnginx-master:latest
+                '''
+            } 
         }
     }
 }
