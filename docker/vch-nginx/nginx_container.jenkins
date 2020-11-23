@@ -32,6 +32,9 @@ pipeline {
                 	sh 'docker build -t vchaws/vchnginx-devel:latest . '
                 }
             }
+            when {
+                expression { env.BRANCH_NAME == 'master' }
+            }
             steps {
                 echo " ============== start building master image =================="
                 dir ('docker/vch-nginx') {
