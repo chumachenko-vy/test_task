@@ -22,25 +22,25 @@ pipeline {
                 }
             }
         }
-        stage("create docker image for devel") {
+        stage("create docker image for master") {
             when {
-                expression { env.BRANCH_NAME == 'devel' }
+                expression { env.BRANCH_NAME == 'master' }
             }
             steps {
-                echo " ============== start building devel image =================="
+                echo " ============== start building master image =================="
                 dir ('docker/vch-nginx') {
-                	sh 'docker build -t vchaws/vchnginx-devel:latest . '
+                	sh 'docker build -t vchaws/vchnginx-master:latest . '
                 }
             }
         }
-         stage("docker push devel") {
+         stage("docker push master") {
             when {
-                expression { env.BRANCH_NAME == 'devel' }
+                expression { env.BRANCH_NAME == 'master' }
             }
             steps {
-                echo " ============== start pushing devel image =================="
+                echo " ============== start pushing master image =================="
                 sh '''
-                docker push vchaws/vchnginx-devel:latest
+                docker push vchaws/vchnginx-master:latest
                 '''
             }
         }
