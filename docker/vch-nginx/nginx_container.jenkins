@@ -56,7 +56,7 @@ pipeline {
             }
         }
     }
-    stage("docker push devel") {
+         stage("docker push devel") {
             when {
                 expression { env.BRANCH_NAME == 'devel' }
             }
