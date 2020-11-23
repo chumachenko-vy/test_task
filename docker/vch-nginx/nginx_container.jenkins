@@ -66,6 +66,6 @@ pipeline {
                 docker push vchaws/vchnginx-master:latest
                 '''
                 }
-            }
-        }
-    }
+           }
+      }
+}
