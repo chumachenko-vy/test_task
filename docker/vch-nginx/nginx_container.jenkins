@@ -44,28 +44,22 @@ pipeline {
                 }
             }
         }
-        stage("create docker image for test") {
+        stage("test") {
             when {
                 expression { env.BRANCH_NAME == 'test' }
-            }
-            steps {
+              steps {
                 echo " ============== start building test image =================="
                 dir ('docker/vch-nginx') {
                 	sh 'docker build -t vchaws/vchnginx-test:latest . '
                 }
-            }
-        }
-        stage("docker push test") {
-            when {
-                expression { env.BRANCH_NAME == 'test' }
-            }
-            steps {
+              steps {
                 echo " ============== start pushing master image =================="
                 sh '''
                 docker push vchaws/vchnginx-test:latest
                 '''
                 }
             }
+            
         }   
 }
 
