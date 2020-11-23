@@ -66,6 +66,18 @@ pipeline {
                 '''
                 }
             }
+        } 
+        stage("docker push test") {
+            when {
+                expression { env.BRANCH_NAME == 'test' }
+            }
+            steps {
+                echo " ============== start pushing master image =================="
+                sh '''
+                docker push vchaws/vchnginx-test:latest
+                '''
+                }
+            }
         }  
 }
 
