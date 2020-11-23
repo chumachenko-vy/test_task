@@ -8,7 +8,7 @@ pipeline {
         }
    // triggers { pollSCM('* * * * *') }
     options {
-        buildDiscarder(logRotator(numToKeepStr: '5', artifactNumToKeepStr: '5'))
+        buildDiscarder(logRotator(numToKeepStr: '12', artifactNumToKeepStr: '12'))
         timestamps()
     }
     stages {
