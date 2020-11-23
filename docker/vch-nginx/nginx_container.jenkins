@@ -1,1 +1,60 @@
+#!groovy
+// Run docker build
+properties([disableConcurrentBuilds()])
+
+pipeline {
+    agent { 
+        label 'master'
+        }
+   // triggers { pollSCM('* * * * *') }
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '5', artifactNumToKeepStr: '5'))
+        timestamps()
+    }
+    stages {
+        stage("docker login") {
+            steps {
+                echo " ============== docker login =================="
+                withCredentials([usernamePassword(credentialsId: 'docker_hub_push', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                    sh """
+                    docker login -u $USERNAME -p $PASSWORD
+                    """
+                }
+            }
+        }
+        stage("create docker image for master") {
+            when {
+                expression { env.BRANCH_NAME == 'master' }
+            }
+            steps {
+                echo " ============== start building master image =================="
+                dir ('docker/vch-nginx') {
+                	sh 'docker build -t vchaws/vchnginx-master:latest . '
+                }
+            }
+        }
+        stage("create docker image for devel") {
+            when {
+                expression { env.BRANCH_NAME == 'devel' }
+            }
+            steps {
+                echo " ============== start building devel image =================="
+                dir ('docker/vch-nginx') {
+                	sh 'docker build -t vchaws/vchnginx-devel:latest . '
+                }
+            }
+        }
+         stage("docker push master") {
+            when {
+                expression { env.BRANCH_NAME == 'master' }
+            }
+            steps {
+                echo " ============== start pushing master image =================="
+                sh '''
+                docker push vchaws/vchnginx-master:latest
+                '''
+            }
+        }
+    }
+}
 
