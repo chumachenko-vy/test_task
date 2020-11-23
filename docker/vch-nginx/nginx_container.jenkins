@@ -56,5 +56,17 @@ pipeline {
             }
         }
     }
+    stage("docker push devel") {
+            when {
+                expression { env.BRANCH_NAME == 'devel' }
+            }
+            steps {
+                echo " ============== start pushing devel image =================="
+                sh '''
+                docker push vchaws/vchnginx-devel:latest
+                '''
+            }
+        }
+    }
 }
 
