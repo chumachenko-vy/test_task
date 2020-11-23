@@ -58,8 +58,6 @@ pipeline {
                 docker push vchaws/vchnginx-test:latest
                 '''
                 }
-            }
-            
-        }   
+            }           
 }
 
