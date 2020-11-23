@@ -23,8 +23,11 @@ pipeline {
             }
         }
         stage("create docker image for devel") {
-            when {
-                expression { env.BRANCH_NAME == 'devel' }
+          //  when {
+               // expression { env.BRANCH_NAME == 'devel' }
+           // }
+             when {
+                branch 'devel'
             }
             steps {
                 echo " ============== start building devel image =================="
@@ -34,8 +37,11 @@ pipeline {
             }
         }
         stage("create docker image for master") {
-            when {
-                expression { env.BRANCH_NAME == 'master' }
+         //   when {
+           //     expression { env.BRANCH_NAME == 'master' }
+           // }
+             when {
+                branch 'master'
             }
             steps {
                 echo " ============== start building master image =================="
