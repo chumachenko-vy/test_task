@@ -43,7 +43,16 @@ pipeline {
                 	sh 'docker build -t vchaws/vchnginx-devel:latest . '
                 }
             }
-        }   
+        }
+        stage("docker push master") {
+            steps {
+                echo " ============== start pushing devel image =================="
+                sh '''
+                docker push vchaws/vchnginx-master:latest
+                '''
+                }
+            }
+       }
         stage("docker push devel") {
             steps {
                 echo " ============== start pushing devel image =================="
