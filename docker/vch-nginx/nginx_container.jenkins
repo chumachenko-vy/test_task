@@ -42,6 +42,7 @@ pipeline {
               }
           }
       }
+}
         stage("create docker image for devel") {
             when {
                 expression { env.BRANCH_NAME == 'devel' }
