@@ -44,6 +44,24 @@ pipeline {
                 }
             }
         }
-                 
+        stage("docker push master") {
+            steps {
+                echo " ============== start pushing devel image =================="
+                sh '''
+                docker push vchaws/vchnginx-master:latest
+                '''
+                }
+            }
+       }
+    
+       stage("docker push devel") {
+            steps {
+                echo " ============== start pushing devel image =================="
+                sh '''
+                docker push vchaws/vchnginx-devel:latest
+                '''
+                }
+            }
+       }          
 }
 
