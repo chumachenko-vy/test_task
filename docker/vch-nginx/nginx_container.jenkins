@@ -58,13 +58,13 @@ pipeline {
                 }  
             }
        }
-        stage("docker push devel") {
-            steps {
-                echo " ============== start pushing devel image =================="
-                sh '''
-                docker push vchaws/vchnginx-devel:latest
-                '''
-                }
-            }
-       }
+       // stage("docker push devel") {
+        //    steps {
+            //    echo " ============== start pushing devel image =================="
+          //      sh '''
+           //     docker push vchaws/vchnginx-devel:latest
+         //       '''
+        ////        }
+         //   }
+      // }
 }
