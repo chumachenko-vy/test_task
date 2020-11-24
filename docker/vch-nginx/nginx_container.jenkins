@@ -33,16 +33,14 @@ pipeline {
                 }
             }
         }
-        stage("docker push devel") {
+        stage("docker push master") {
             steps {
                 echo " ============== start pushing devel image =================="
                 sh '''
-                docker push vchaws/vchnginx-devel:latest
+                docker push vchaws/vchnginx-master:latest
                 '''
               }
           }
-      }
-}
         stage("create docker image for devel") {
             when {
                 expression { env.BRANCH_NAME == 'devel' }
